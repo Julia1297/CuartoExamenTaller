@@ -19,6 +19,11 @@
                             <li th:if="${user.role=='ADMIN'}"><a href="/ADMIN"> ADMINISTRADOR </a></li>
                             <li th:if="${username=='not logged in'}"><a href="/registration"> Registrar </a></li>
                             <li th:if="${username=='not logged in'}"><a href="/login"> Iniciar Sesion </a></li>
+                            <li ><a href="/reporte"> Reporte </a></li>
+
+
+
+
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li th:if="${username!='not logged in'}"><a th:href="${'/profile/' + user.id}"> Perfil </a></li>

@@ -47,6 +47,7 @@ public class Restaurant {
     private Double latitude;
     private Double longitude;
 
+    private Integer cantidadComentarios;
     public String getF() { return f; }
 
     public void setF(String f) { this.f = f; }
@@ -138,5 +139,13 @@ public class Restaurant {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer getCantidadComentarios() {
+        return cantidadComentarios;
+    }
+
+    public void setCantidadComentarios(Integer cantidadComentarios) {
+        this.cantidadComentarios = cantidadComentarios;
     }
 }

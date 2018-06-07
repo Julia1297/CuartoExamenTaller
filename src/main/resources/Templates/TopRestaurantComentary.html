@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Restaurantes</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"/>
+    <style>
+        .container{
+            color: orange;
+        }
+        .jumbotron{
+            background-color: #012438;
+            color: orange;
+        }
+    </style>
+
+
+</head>
+<body style="background-color: #00002D;">
+<form th:action="@{/reporte}" method="POST">
+    <button class="btn btn-secondary" style="color:orange; background-color: #00002D; border:none;" type="submit"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
+</form>
+<div class="container">
+
+    <div class="media jumbotron" th:each="restaurant: ${restaurants}">
+        <div class="media-body">
+
+            <h4 class="media-heading"  th:text="${restaurant.name}"></h4>
+            <p th:text="${restaurant.cantidadComentarios}"></p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

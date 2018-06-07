@@ -295,6 +295,110 @@ public class RestaurantController {
         model.addAttribute("restaurants", restaurants);
         return "rankingCategorias";
     }
+    @RequestMapping("/topUserComentary")
+    public String topUserComentaristas(Model model) throws UnsupportedEncodingException {
+        List<com.ucbcba.demo.Entities.User> usuarios;
+
+
+
+        usuarios = (List<com.ucbcba.demo.Entities.User>) userService.listAllUsers();
+
+        for(int j=0;j<usuarios.size();j++){
+            usuarios.get(j).setCantidadComentarios(usuarios.get(j).getComments().size());
+        }
+
+        usuarios.sort((s1, s2) -> s1.getCantidadComentarios().compareTo(s2.getCantidadComentarios()));
+        Collections.reverse(usuarios);
+        if(usuarios.size()>3)
+            usuarios=usuarios.subList(0,3);
+
+
+        model.addAttribute("usuarios", usuarios);
+        return "TopUserComentary";
+    }
+
+    @RequestMapping("/topRestaurantComentary")
+    public String topRestaurantComentary(Model model) throws UnsupportedEncodingException {
+        List<Restaurant> restaurants;
+
+
+        restaurants = (List<Restaurant>) restaurantService.listAllRestaurants();
+
+        for(int j=0;j<restaurants.size();j++){
+            restaurants.get(j).setCantidadComentarios(restaurants.get(j).getComments().size());
+        }
+
+        restaurants.sort((s1, s2) -> s1.getCantidadComentarios().compareTo(s2.getCantidadComentarios()));
+        Collections.reverse(restaurants);
+
+        if(restaurants.size()>3)
+            restaurants=restaurants.subList(0,3);
+
+        model.addAttribute("restaurants", restaurants);
+        return "TopRestaurantComentary";
+    }
+
+    @RequestMapping("/topUserMejorCalificadores")
+    public String topUserMejorCalificadores(Model model) throws UnsupportedEncodingException {
+        List<com.ucbcba.demo.Entities.User> usuarios;
+
+
+        usuarios = (List<com.ucbcba.demo.Entities.User>) userService.listAllUsers();
+
+        for (int j = 0; j < usuarios.size(); j++) {
+            usuarios.get(j).setPromedioCalificaciones((double) 0);
+            for(int i=0;i<usuarios.get(j).getComments().size();i++) {
+                usuarios.get(j).setPromedioCalificaciones(usuarios.get(j).getPromedioCalificaciones()+usuarios.get(j).getComments().get(i).getScore());
+                System.out.println("entro");
+            }
+            if(usuarios.get(j).getComments().size()>0)
+                usuarios.get(j).setPromedioCalificaciones(usuarios.get(j).getPromedioCalificaciones()/usuarios.get(j).getCantidadComentarios());
+            else
+                usuarios.get(j).setPromedioCalificaciones((double) 0);
+            System.out.println("salio");
+
+
+        }
+
+        usuarios.sort((s1, s2) -> s1.getPromedioCalificaciones().compareTo(s2.getPromedioCalificaciones()));
+        Collections.reverse(usuarios);
+        if (usuarios.size() > 3)
+            usuarios = usuarios.subList(0, 3);
+
+
+        model.addAttribute("usuarios", usuarios);
+        return "TopUserCalificadores";
+    }
+
+    @RequestMapping("/topUserPeorCalificadores")
+    public String topUserPeorCalificadores(Model model) throws UnsupportedEncodingException {
+        List<com.ucbcba.demo.Entities.User> usuarios;
+
+
+        usuarios = (List<com.ucbcba.demo.Entities.User>) userService.listAllUsers();
+
+        for (int j = 0; j < usuarios.size(); j++) {
+            usuarios.get(j).setPromedioCalificaciones((double) 0);
+            for(int i=0;i<usuarios.get(j).getComments().size();i++) {
+                usuarios.get(j).setPromedioCalificaciones(usuarios.get(j).getPromedioCalificaciones()+usuarios.get(j).getComments().get(i).getScore());
+            }
+            usuarios.get(j).setPromedioCalificaciones(usuarios.get(j).getPromedioCalificaciones()/usuarios.get(j).getCantidadComentarios());
+        }
+
+        usuarios.sort((s1, s2) -> s1.getPromedioCalificaciones().compareTo(s2.getPromedioCalificaciones()));
+        if (usuarios.size() > 3)
+            usuarios = usuarios.subList(0, 3);
+
+
+        model.addAttribute("usuarios", usuarios);
+        return "TopUserPeorCalificadores";
+    }
+
+    @RequestMapping("/reporte")
+    String reportes(Model model) {
+             return "Reportes";
+    }
+
 
 
 }

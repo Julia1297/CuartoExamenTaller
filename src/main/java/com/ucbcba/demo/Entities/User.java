@@ -2,6 +2,7 @@ package com.ucbcba.demo.Entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class User {
@@ -27,6 +28,13 @@ public class User {
     private String aficiones = "";
 
     private String f;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+    private Integer cantidadComentarios=0;
+
+    private Double promedioCalificaciones= Double.valueOf(0);
 
     public User() { }
 
@@ -118,5 +126,29 @@ public class User {
 
     public void setAficiones(String aficiones) {
         this.aficiones = aficiones;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Integer getCantidadComentarios() {
+        return cantidadComentarios;
+    }
+
+    public void setCantidadComentarios(Integer cantidadComentarios) {
+        this.cantidadComentarios = cantidadComentarios;
+    }
+
+    public Double getPromedioCalificaciones() {
+        return promedioCalificaciones;
+    }
+
+    public void setPromedioCalificaciones(Double promedioCalificaciones) {
+        this.promedioCalificaciones = promedioCalificaciones;
     }
 }
