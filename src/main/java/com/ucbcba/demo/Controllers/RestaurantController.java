@@ -382,8 +382,11 @@ public class RestaurantController {
             for(int i=0;i<usuarios.get(j).getComments().size();i++) {
                 usuarios.get(j).setPromedioCalificaciones(usuarios.get(j).getPromedioCalificaciones()+usuarios.get(j).getComments().get(i).getScore());
             }
-            usuarios.get(j).setPromedioCalificaciones(usuarios.get(j).getPromedioCalificaciones()/usuarios.get(j).getCantidadComentarios());
-        }
+            if(usuarios.get(j).getComments().size()>0)
+                usuarios.get(j).setPromedioCalificaciones(usuarios.get(j).getPromedioCalificaciones()/usuarios.get(j).getCantidadComentarios());
+            else
+                usuarios.get(j).setPromedioCalificaciones((double) 0);
+            System.out.println("salio");        }
 
         usuarios.sort((s1, s2) -> s1.getPromedioCalificaciones().compareTo(s2.getPromedioCalificaciones()));
         if (usuarios.size() > 3)
